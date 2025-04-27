@@ -25,12 +25,11 @@ public class AuthService {
     private final JwtUtil jwtUtil;
 
     public AuthService(
-        JwtUtil jwtUtil,
-        PasswordUtil passwordUtil,
-        RedisService redisService,
-        UserService userService,
-        UserRepository userRepository
-    ) {
+            JwtUtil jwtUtil,
+            PasswordUtil passwordUtil,
+            RedisService redisService,
+            UserService userService,
+            UserRepository userRepository) {
         this.userService = userService;
         this.passwordUtil = passwordUtil;
         this.redisService = redisService;
@@ -39,9 +38,10 @@ public class AuthService {
     }
 
     public UserResponse register(RegisterRequest registerRequest, HttpServletResponse response) {
-        
+
         String saltBase64 = passwordUtil.generateSaltBase64();
-        String hashPassword = passwordUtil.hashPassword(registerRequest.getPassword(), passwordUtil.decodeSaltBase64(saltBase64));
+        String hashPassword = passwordUtil.hashPassword(registerRequest.getPassword(),
+                passwordUtil.decodeSaltBase64(saltBase64));
 
         String password = saltBase64 + ":" + hashPassword;
 
@@ -52,17 +52,21 @@ public class AuthService {
         jwtUtil.setCookie(token, response);
 
         return UserResponse.builder()
-            .id(user.getId())
-            .fullName(user.getFullName())
-            .universityId(user.getUniversityId())
-            .email(user.getEmail())
-            .role(user.getRole())
-            .build();
+                .id(user.getId())
+                .fullName(user.getFullName())
+                .universityId(user.getUniversityId())
+                .email(user.getEmail())
+                .profileImage(user.getProfileImage())
+                .role(user.getRole())
+                .createdAt(user.getCreatedAt())
+                .updatedAt(user.getUpdatedAt())
+                .profileImage(user.getProfileImage())
+                .build();
     }
 
     public UserResponse login(LoginRequest loginRequest, HttpServletResponse response) {
         User user = userRepository.findByUniversityId(loginRequest.getUniversityId())
-            .orElseThrow(() -> new CustomException(StatusCode.USER_NOT_FOUND));
+                .orElseThrow(() -> new CustomException(StatusCode.USER_NOT_FOUND));
 
         if (!passwordUtil.verifyPassword(loginRequest.getPassword(), user.getPassword())) {
             throw new CustomException(StatusCode.INVALID_PASSWORD);
@@ -73,12 +77,12 @@ public class AuthService {
         jwtUtil.setCookie(token, response);
 
         return UserResponse.builder()
-            .id(user.getId())
-            .fullName(user.getFullName())
-            .universityId(user.getUniversityId())
-            .email(user.getEmail())
-            .role(user.getRole())
-            .build();
+                .id(user.getId())
+                .fullName(user.getFullName())
+                .universityId(user.getUniversityId())
+                .email(user.getEmail())
+                .role(user.getRole())
+                .build();
     }
 
     public void logout(HttpServletRequest request, HttpServletResponse response) {

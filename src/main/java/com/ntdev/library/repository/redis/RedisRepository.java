@@ -6,8 +6,8 @@ import org.springframework.stereotype.Repository;
 import com.ntdev.library.entity.RedisToken;
 
 @Repository
-public interface RedisRepository extends CrudRepository<RedisToken, String> {
-    RedisToken findByUniversityId(String universityId);
+public interface RedisRepository extends CrudRepository<RedisToken, Long> {
+    RedisToken findByUniversityId(Long universityId);
 
     void deleteByToken(String token);
 }

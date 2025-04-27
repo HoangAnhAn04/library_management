@@ -55,7 +55,7 @@ public class Middleware extends OncePerRequestFilter {
             return;
         }
 
-        String redisToken = redisService.getToken(universityId);
+        String redisToken = redisService.getToken(Long.valueOf(universityId));
         if (redisToken == null || !redisToken.equals(token)) {
             ResponseHandler.writeErrorResponse(response, path, StatusCode.TOKEN_INVALID_OR_EXPIRED,
                     "Token is invalid or expired");

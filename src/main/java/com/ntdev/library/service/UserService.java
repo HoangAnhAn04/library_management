@@ -1,5 +1,6 @@
 package com.ntdev.library.service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -45,14 +46,18 @@ public class UserService {
             throw new CustomException(StatusCode.UNIVERSITYID_OR_EMAIL_ALREADY_EXISTS);
         }
 
-        return userRepository.save(
-                User.builder()
-                        .fullName(request.getFullName())
-                        .universityId(request.getUniversityId())
-                        .password(password)
-                        .email(request.getEmail())
-                        .role(RoleName.MEMBER)
-                        .build());
+        User user = User.builder()
+                .fullName(request.getFullName())
+                .universityId(request.getUniversityId())
+                .email(request.getEmail())
+                .password(password)
+                .role(RoleName.MEMBER) // giả sử default role
+                .createdAt(LocalDateTime.now())
+                .updatedAt(LocalDateTime.now())
+                .build();
+
+        User savedUser = userRepository.saveAndFlush(user); // 👈 saveAndFlush
+        return savedUser;
     }
 
     @Transactional
@@ -69,7 +74,7 @@ public class UserService {
             user.setEmail(request.getEmail());
         }
 
-        userRepository.save(user);
+        userRepository.saveAndFlush(user);
 
         return convertToUserResponse(user);
     }

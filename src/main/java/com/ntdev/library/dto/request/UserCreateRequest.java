@@ -1,5 +1,7 @@
 package com.ntdev.library.dto.request;
 
+import java.time.LocalDateTime;
+
 import jakarta.validation.constraints.Digits;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -33,4 +35,7 @@ public class UserCreateRequest {
     private String profileImage;
 
     private String role;
+
+    private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
 }

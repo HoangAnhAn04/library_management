@@ -19,12 +19,12 @@ public class RedisService {
         redisRepository.save(redisToken);
     }
 
-    public String getToken(String universityId) {
+    public String getToken(Long universityId) {
         RedisToken redisToken = redisRepository.findByUniversityId(universityId);
         return redisToken != null ? redisToken.getToken() : null;
     }
 
-    public void deleteByUniversityId(String universityId) {
+    public void deleteByUniversityId(Long universityId) {
         redisRepository.deleteById(universityId);
     }
 

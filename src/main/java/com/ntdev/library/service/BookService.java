@@ -63,7 +63,7 @@ public class BookService {
                 .availableCopies(request.getTotalCopies())
                 .build();
 
-        Book savedBook = bookRepository.save(book);
+        Book savedBook = bookRepository.saveAndFlush(book);
         return convertToBookResponse(savedBook);
     }
 
