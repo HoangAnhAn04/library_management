@@ -1,0 +1,36 @@
+server:
+    port: 8080
+    servlet:
+        context-path: /api/v1
+
+spring:
+    datasource:
+        url: jdbc:postgresql://localhost:5432/library_management
+        username: postgres
+        password: 1
+        driver-class-name: org.postgresql.Driver
+
+    jpa:
+        hibernate:
+            ddl-auto: create-drop
+        show-sql: true
+        open-in-view: false
+
+    data:
+        redis:
+            host: localhost
+            port: 6379
+            repositories:
+                enabled: true
+
+jwt:
+    secret: tKxu2VHJgmOdg2F4GTQOBR0N21Vgo1DqH4bCDIVP2LU=
+    expiration-ms: 86400000 # 1 ngày
+    cookie-name: session_token
+    domain: "library.thiendev.id.vn"
+
+password:
+    secret: 0QQw+S5Jzd4o2/qM8YAja27ErBKOoV6+LREEzbJfiDo=
+    algorithm: PBKDF2WithHmacSHA256
+    iterations: 65536
+    key-length: 256

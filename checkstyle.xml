@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<!DOCTYPE module PUBLIC
+        "-//Checkstyle//DTD Checkstyle Configuration 1.3//EN"
+        "https://checkstyle.org/dtds/configuration_1_3.dtd">
+
+<module name="Checker">
+    <property name="charset" value="UTF-8"/>
+
+    <module name="TreeWalker">
+        <!-- Naming conventions -->
+        <module name="LocalVariableName"/>
+        <module name="MethodName"/>
+        <module name="ParameterName"/>
+        <module name="MemberName"/>
+        <module name="TypeName"/>
+
+        <!-- Code formatting -->
+        <module name="Indentation">
+            <property name="basicOffset" value="4"/>
+            <property name="braceAdjustment" value="0"/>
+            <property name="caseIndent" value="4"/>
+            <property name="throwsIndent" value="4"/>
+            <property name="lineWrappingIndentation" value="8"/>
+        </module>
+
+        <!-- Avoid magic numbers -->
+        <module name="MagicNumber">
+            <property name="ignoreNumbers" value="-1,0,1"/>
+        </module>
+
+        <!-- Line length -->
+        <module name="LineLength">
+            <property name="max" value="120"/>
+        </module>
+
+        <!-- Import rules -->
+        <module name="AvoidStarImport"/>
+        <module name="UnusedImports"/>
+
+        <!-- Optional: Require Javadoc -->
+        <module name="JavadocMethod">
+            <property name="scope" value="public"/>
+            <property name="allowMissingParamTags" value="true"/>
+            <property name="allowMissingReturnTag" value="true"/>
+        </module>
+    </module>
+</module>
