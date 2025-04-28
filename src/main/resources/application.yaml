@@ -1,37 +1,36 @@
 server:
-    port: ${PORT:8080} # Render inject tự động PORT
+    port: 8080
     servlet:
         context-path: /api/v1
 
 spring:
     datasource:
-        url: ${SPRING_DATASOURCE_URL}
-        username: ${SPRING_DATASOURCE_USERNAME}
-        password: ${SPRING_DATASOURCE_PASSWORD}
+        url: jdbc:postgresql://localhost:5432/library_management
+        username: postgres
+        password: 1
         driver-class-name: org.postgresql.Driver
 
     jpa:
         hibernate:
-            ddl-auto: update # Không nên create-drop ở môi trường production (Render)
+            ddl-auto: create-drop
         show-sql: true
         open-in-view: false
 
     data:
         redis:
-            host: ${REDIS_HOST}
-            port: ${REDIS_PORT:6379}
-            password: ${REDIS_PASSWORD:}
+            host: localhost
+            port: 6379
             repositories:
                 enabled: true
 
 jwt:
-    secret: ${JWT_SECRET:tKxu2VHJgmOdg2F4GTQOBR0N21Vgo1DqH4bCDIVP2LU=}
-    expiration-ms: ${JWT_EXPIRATION_MS:86400000}
-    cookie-name: ${JWT_COOKIE_NAME:session_token}
-    domain: ${JWT_DOMAIN:library.thiendev.id.vn}
+    secret: tKxu2VHJgmOdg2F4GTQOBR0N21Vgo1DqH4bCDIVP2LU=
+    expiration-ms: 86400000 # 1 ngày
+    cookie-name: session_token
+    domain: "library.thiendev.id.vn"
 
 password:
-    secret: ${PASSWORD_SECRET:0QQw+S5Jzd4o2/qM8YAja27ErBKOoV6+LREEzbJfiDo=}
-    algorithm: ${PASSWORD_ALGORITHM:PBKDF2WithHmacSHA256}
-    iterations: ${PASSWORD_ITERATIONS:65536}
-    key-length: ${PASSWORD_KEY_LENGTH:256}
+    secret: 0QQw+S5Jzd4o2/qM8YAja27ErBKOoV6+LREEzbJfiDo=
+    algorithm: PBKDF2WithHmacSHA256
+    iterations: 65536
+    key-length: 256
